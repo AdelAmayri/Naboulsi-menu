@@ -8,7 +8,27 @@ import { createClient } from "@/lib/supabase/client";
 import type { MenuCategory, MenuProduct } from "@/lib/menu";
 
 const fallback: MenuCategory[] = [
-  ["breakfast","Breakfast","فطور"],["hummus-foul","Hummus & Foul","حمص وفول"],["falafel","Falafel","فلافل"],["shawarma","Shawarma","شاورما"],["sandwiches","Sandwiches","سندويشات"],["snacks","Snacks","سناك"],["meals","Meals","وجبات"],["platters","Platters","سخنات"],["burgers","Burgers","برغر"],["pizza","Pizza","بيتزا"],["drinks","Drinks","مشروبات"],["desserts","Desserts","حلويات"]
+  ["new-items","New Items","أصناف جديدة"],
+  ["appetizers","Appetizers","مقبلات"],
+  ["breakfast","Breakfast","فطور"],
+  ["salad","Salad","سلطات"],
+  ["pizza","Pizza","بيتزا"],
+  ["pasta","Pasta","باستا"],
+  ["burgers","Burgers","برغر"],
+  ["sandwiches","Sandwiches","سندويشات"],
+  ["diet-sandwiches-meals","Diet Sandwiches & Meals","سندويشات ووجبات دايت"],
+  ["shawarma","Shawarma","شاورما"],
+  ["platters","Platters","أطباق"],
+  ["regular-meals","Regular Meals","وجبات عادية"],
+  ["kids-meals","Kids Meals","وجبات الأطفال"],
+  ["cut-meals","Cut Meals","وجبات مقطعة"],
+  ["cake","Cake","كيك"],
+  ["ice-cream","Ice Cream","آيس كريم"],
+  ["crepe","Crepe","كريب"],
+  ["shakes-frappe-smoothies","Shake & Frappe & Smoothies","شيك وفرابيه وسموذي"],
+  ["cold-drinks","Cold Drinks","مشروبات باردة"],
+  ["hot-drinks","Hot Drinks","مشروبات ساخنة"],
+  ["shisha","Shisha","أرجيلة"]
 ].map(([slug,name_en,name_ar],i)=>({id:slug,slug,name_en,name_ar,sort_order:(i+1)*10}));
 type CartLine = { product: MenuProduct; quantity: number };
 const hero = "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=2200&q=90";
