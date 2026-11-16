@@ -94,7 +94,7 @@ export default function HomePage() {
     if(!cart.length)return;
     const rows=cart.map(x=>"• "+(ar?x.product.name_ar:x.product.name_en)+" × "+x.quantity+" — "+money((x.product.price??0)*x.quantity));
     const message=[t.order,name?t.customer+": "+name:"",...rows,t.total+": "+money(total),notes?t.notes+": "+notes:""].filter(Boolean).join("\n");
-    window.location.href="https://wa.me/"+number+"?text="+encodeURIComponent(message);
+    window.location.assign("https://wa.me/"+number+"?text="+encodeURIComponent(message));
   }
   return <main dir={ar?"rtl":"ltr"} className="min-h-screen overflow-hidden bg-[#f4f1eb] text-[#151515]">
     <header className="site-header">
