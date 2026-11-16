@@ -93,7 +93,8 @@ export default function HomePage() {
   }
   function qty(id:string,d:number){setCart(old=>old.map(x=>x.product.id===id?{...x,quantity:x.quantity+d}:x).filter(x=>x.quantity>0));}
   function checkout(){
-    const number=(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER??"96181461333").replace(/\D/g,"");
+    const configuredNumber=process.env.NEXT_PUBLIC_WHATSAPP_NUMBER??"";
+    const number=(configuredNumber&&!configuredNumber.includes("X")?configuredNumber:"96181461333").replace(/\D/g,"");
     if(!number||number.includes("XXXXXXXX")){window.alert(ar?"رقم واتساب المطعم غير مضبوط بعد.":"The restaurant WhatsApp number has not been configured yet.");return;}
     if(!cart.length)return;
     const rows=cart.map(x=>"• "+(ar?x.product.name_ar:x.product.name_en)+" × "+x.quantity+" — "+money((x.product.price??0)*x.quantity));
