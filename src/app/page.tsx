@@ -62,6 +62,10 @@ export default function HomePage() {
     loading:"Loading menu...", fail:"The menu could not be loaded right now.", all:"All items", footer:"A taste worth remembering."
   },[ar]);
   useEffect(()=>{
+    document.documentElement.lang=ar?"ar":"en";
+    document.documentElement.dir=ar?"rtl":"ltr";
+  },[ar]);
+  useEffect(()=>{
     let live=true;
     async function load(){
       const db=createClient();
@@ -123,8 +127,8 @@ export default function HomePage() {
       <div className="category-grid">{categories.map((c,i)=><button key={c.id} onClick={()=>{setActive(c.id);document.getElementById("menu-items")?.scrollIntoView({behavior:"smooth"});}} className={"category-tile "+(active===c.id?"selected":"")}><span className="category-number">{String(i+1).padStart(2,"0")}</span><span className="category-title">{ar?c.name_ar:c.name_en}</span><ArrowUpRight className="category-arrow" size={18}/></button>)}</div>
       <div id="menu-items" className="products-area"><div className="product-toolbar"><button className={active==="all"?"filter-chip active":"filter-chip"} onClick={()=>setActive("all")}>{t.all}</button>{active!=="all"&&<span>{categories.find(c=>c.id===active)?.[ar?"name_ar":"name_en"]}</span>}</div>
         {loading?<p className="menu-status">{t.loading}</p>:error?<p className="menu-status">{t.fail}</p>:visible.length===0?<div className="menu-empty"><span className="empty-line"/><p>{t.empty}</p><small>{t.soon}</small></div>:<div className="product-grid">{visible.map(p=><motion.article key={p.id} className="product-card" initial={{opacity:0,y:22}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.15}} transition={{duration:.45}}>
-          <div className="product-image">{p.image_url?<Image src={p.image_url} alt={ar?p.name_ar:p.name_en} fill sizes="(max-width:760px) 90vw,30vw" className="product-photo"/>:<div className="product-image-placeholder">N</div>}{p.is_featured&&<span className="product-featured">{ar?"مميز":"FEATURED"}</span>}</div>
-          <div className="product-details"><div><h3>{ar?p.name_ar:p.name_en}</h3><p>{ar?p.description_ar:p.description_en}</p></div><div className="product-buy-row"><strong>{p.price===null?t.ask:money(p.price)}</strong><button disabled={p.price===null} onClick={()=>add(p)}>{p.price===null?t.ask:<><Plus size={15}/>{t.add}</>}</button></div></div>
+          <div className="product-image">{p.image_url?<Image src={p.image_url} alt={ar?(p.name_ar||p.name_en):p.name_en} fill sizes="(max-width:760px) 90vw,30vw" className="product-photo"/>:<div className="product-image-placeholder">N</div>}{p.is_featured&&<span className="product-featured">{ar?"مميز":"FEATURED"}</span>}</div>
+          <div className="product-details"><div><h3>{ar?p.name_ar:p.name_en}</h3><p>{ar?(p.description_ar||p.description_en):p.description_en}</p></div><div className="product-buy-row"><strong>{p.price===null?t.ask:money(p.price)}</strong><button disabled={p.price===null} onClick={()=>add(p)}>{p.price===null?t.ask:<><Plus size={15}/>{t.add}</>}</button></div></div>
         </motion.article>)}</div>}
       </div>
     </section>
